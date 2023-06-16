@@ -1,0 +1,109 @@
+import React, { useState } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  FormHelperText,
+  Button,
+  ButtonGroup,
+  InputRightElement,
+  InputGroup,
+  Box,
+  Center,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import axios from "axios";
+
+interface Props {}
+
+const LogIn = (props: Props) => {
+  const baseURL = "http://localhost:5002/api/v1/auth/login";
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log("aaa");
+    try {
+      const { data } = await axios.post(
+        baseURL,
+        {
+          email,
+          password,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  return (
+    <div>
+      <Center height={["100vh"]}>
+        <form onSubmit={handleSubmit}>
+          {" "}
+          <Box>
+            <Center>
+              <Box>
+                <Image />
+                <Text fontSize={"3xl"}>LogIn</Text>
+              </Box>
+            </Center>
+          </Box>
+          <FormControl marginTop={10}>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="email"
+              placeholder="medium size"
+              size="md"
+              width={[250]}
+              variant="filled"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            <FormHelperText>We'll never share your email.</FormHelperText>
+          </FormControl>
+          <InputGroup size="md" width={[250]} marginTop={10}>
+            <Input
+              pr="4.5rem"
+              type={show ? "text" : "password"}
+              placeholder="Enter password"
+              variant="filled"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? "Hide" : "Show"}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <ButtonGroup variant="outline" spacing="6" marginTop={10}>
+            <Button
+              colorScheme="blue"
+              color={"white"}
+              width={[250]}
+              type="submit"
+              backgroundColor={"blue.400"}
+            >
+              submit
+            </Button>
+          </ButtonGroup>
+        </form>
+      </Center>
+    </div>
+  );
+};
+
+export default LogIn;

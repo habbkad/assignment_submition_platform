@@ -5,7 +5,7 @@ function Tutor_routes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route />
       </Routes>
     </BrowserRouter>
   );
