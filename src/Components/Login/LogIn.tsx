@@ -14,11 +14,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useAppDispatch } from "../../hooks/hook";
+import { addUser } from "../../Redux/UserSlice";
 
 interface Props {}
 
 const LogIn = (props: Props) => {
   const baseURL = "http://localhost:5002/api/v1/auth/login";
+
+  const dispatch = useAppDispatch();
+
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -41,6 +46,7 @@ const LogIn = (props: Props) => {
         },
         { withCredentials: true }
       );
+      dispatch(addUser(data));
       console.log(data);
     } catch (err) {
       console.log(err);

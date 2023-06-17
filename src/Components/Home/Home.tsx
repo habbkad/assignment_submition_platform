@@ -4,12 +4,14 @@ import User_details from "./User_details";
 import Assignment_Details from "./Assignment_Details";
 import User_profile from "./User_profile";
 import { useStudent } from "../../hooks/hook";
+import { useAppSelector, useAppDispatch } from "../../hooks/hook";
 
 interface Props {}
 
 const Home = (props: Props) => {
-  const data = useStudent("648c72eeb3ae57c966d7d0fa");
-  console.log(data);
+  const { user }: any = useAppSelector((state) => state.user);
+
+  useStudent("648c72eeb3ae57c966d7d0fa");
 
   return (
     <div>

@@ -1,9 +1,11 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
-
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 interface Props {}
 
 const User_details = (props: Props) => {
+  const { student }: any = useAppSelector((state) => state.student);
+
   return (
     <div>
       <Box>
@@ -13,22 +15,22 @@ const User_details = (props: Props) => {
         <Box>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Phone</Text>
-            <Text w={["30%"]}>02020303040</Text>
+            <Text w={["30%"]}>{student.phone}</Text>
             <Text w={["50%"]}> edit</Text>
           </Flex>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Index Number</Text>
-            <Text w={["30%"]}>02020303040</Text>
+            <Text w={["30%"]}>{student.indexNumber}</Text>
             <Text w={["50%"]}> edit</Text>
           </Flex>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Gen</Text>
-            <Text w={["30%"]}>02020303040</Text>
+            <Text w={["30%"]}>{student.gen}</Text>
             <Text w={["50%"]}> edit</Text>
           </Flex>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Email</Text>
-            <Text w={["30%"]}>02020303040</Text>
+            <Text w={["30%"]}>{student.email}</Text>
             <Text w={["50%"]}> edit</Text>
           </Flex>
         </Box>

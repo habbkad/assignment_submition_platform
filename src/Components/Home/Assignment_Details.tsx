@@ -13,9 +13,12 @@ import { BsPerson } from "react-icons/bs";
 import { FiServer } from "react-icons/fi";
 import { GoLocation } from "react-icons/go";
 import StatsCard from "./StatsCard";
+import { useAppSelector } from "../../hooks/hook";
 type Props = {};
 
 function Assignment_Dertails({}: Props) {
+  const { student }: any = useAppSelector((state) => state.student);
+
   return (
     <div>
       <Box>
@@ -23,17 +26,17 @@ function Assignment_Dertails({}: Props) {
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
             <StatsCard
               title={"Total Assignments"}
-              stat={"5,000"}
+              stat={"25"}
               icon={<BsPerson size={"3em"} />}
             />
             <StatsCard
               title={"Assignments submitted"}
-              stat={"1,000"}
+              stat={student.assignments.length}
               icon={<FiServer size={"3em"} />}
             />
             <StatsCard
               title={"Arrears"}
-              stat={"7"}
+              stat={`${25 - student.assignments.length}`}
               icon={<GoLocation size={"3em"} />}
             />
           </SimpleGrid>

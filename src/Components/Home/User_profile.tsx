@@ -1,9 +1,12 @@
 import React from "react";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 
 type Props = {};
 
 function User_profile({}: Props) {
+  const { student }: any = useAppSelector((state) => state.student);
+
   return (
     <div>
       <Box backgroundColor={"gray.50"}>
@@ -14,7 +17,7 @@ function User_profile({}: Props) {
         justify={["center", "normal"]}
         w={"100%"}
       >
-        <Box mt={[5]} width={["100%", "35%"]}>
+        <Box mt={[5]} width={["100%", "25%"]}>
           <Image
             borderRadius="full"
             boxSize="170px"
@@ -23,7 +26,9 @@ function User_profile({}: Props) {
           />
         </Box>
         <Box width={["100%", "30%"]} mt={[5]}>
-          <Text fontSize={"3xl"}>Name</Text>
+          <Text
+            fontSize={"3xl"}
+          >{`${student.firstName} ${student.middleName} ${student.lastName}`}</Text>
           <Text>Student</Text>
         </Box>
         <Box alignItems={"flex-end"} mt={[5]}>
