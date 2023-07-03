@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define the initial state using that type
 const initialState = {
-  user: { id: "648c72eeb3ae57c966d7d0fa" },
+  user: { id: "" },
 };
 
 export const UserSlice = createSlice({

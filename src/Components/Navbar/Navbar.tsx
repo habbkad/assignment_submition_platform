@@ -35,17 +35,25 @@ import {
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import User_routes from "../../router/User_routes";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/hook";
+import { addUser } from "../../Redux/UserSlice";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  location: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Assignments", icon: FiTrendingUp },
-  { name: "Submit assgnments", icon: FiCompass },
-  { name: "Contact fellow", icon: FiStar },
-  { name: "Profile ", icon: FiSettings },
+  { name: "Home", icon: FiHome, location: "/" },
+  { name: "Assignments", icon: FiTrendingUp, location: "/assignments" },
+  {
+    name: "Submit assgnments",
+    icon: FiCompass,
+    location: "/submit-assignment",
+  },
+  { name: "Contact fellow", icon: FiStar, location: "/" },
+  { name: "Profile ", icon: FiSettings, location: "/" },
 ];
 
 export default function SidebarWithHeader({
@@ -54,11 +62,13 @@ export default function SidebarWithHeader({
   children: ReactNode;
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
+        navigate={navigate}
       />
       <Drawer
         autoFocus={false}
@@ -70,7 +80,7 @@ export default function SidebarWithHeader({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent onClose={onClose} navigate={navigate} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
@@ -84,9 +94,10 @@ export default function SidebarWithHeader({
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
+  navigate: any;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({ onClose, navigate, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
@@ -105,7 +116,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          location={link.location}
+          navigate={navigate}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -116,14 +132,18 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  location: string;
+  navigate: any;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({
+  icon,
+  children,
+  location,
+  navigate,
+  ...rest
+}: NavItemProps) => {
   return (
-    <Link
-      href="#"
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
-    >
+    <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
         align="center"
         p="4"
@@ -136,6 +156,9 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
           color: "white",
         }}
         {...rest}
+        onClick={() => {
+          navigate(location);
+        }}
       >
         {icon && (
           <Icon
@@ -157,6 +180,7 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const dispatch = useAppDispatch();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -227,11 +251,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem
+                onClick={(e) => {
+                  dispatch(addUser(""));
+                }}
+              >
+                Sign out
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

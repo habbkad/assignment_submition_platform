@@ -24,6 +24,7 @@ const LogIn = (props: Props) => {
 
   const dispatch = useAppDispatch();
 
+  const [loading, setLoading] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -32,7 +33,7 @@ const LogIn = (props: Props) => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("aaa");
+    setLoading(true);
     try {
       const { data } = await axios.post(
         baseURL,
@@ -46,68 +47,81 @@ const LogIn = (props: Props) => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(data));
-      console.log(data);
+
+      setTimeout(() => {
+        setLoading(false);
+        dispatch(addUser(data));
+      }, 2000);
     } catch (err) {
       console.log(err);
     }
   };
   return (
     <div>
-      <Center height={["100vh"]}>
-        <form onSubmit={handleSubmit}>
+      {loading ? (
+        <Center height={["100vh"]}>
           {" "}
-          <Box>
-            <Center>
-              <Box>
-                <Image />
-                <Text fontSize={"3xl"}>LogIn</Text>
-              </Box>
-            </Center>
-          </Box>
-          <FormControl marginTop={10}>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              type="email"
-              placeholder="medium size"
-              size="md"
-              width={[250]}
-              variant="filled"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-            <FormHelperText>We'll never share your email.</FormHelperText>
-          </FormControl>
-          <InputGroup size="md" width={[250]} marginTop={10}>
-            <Input
-              pr="4.5rem"
-              type={show ? "text" : "password"}
-              placeholder="Enter password"
-              variant="filled"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
-                {show ? "Hide" : "Show"}
+          <Image
+            src={require("../../images/loading.gif")}
+            objectFit={"contain"}
+          />
+        </Center>
+      ) : (
+        <Center height={["100vh"]}>
+          <form onSubmit={handleSubmit}>
+            {" "}
+            <Box>
+              <Center>
+                <Box>
+                  <Image />
+                  <Text fontSize={"3xl"}>LogIn</Text>
+                </Box>
+              </Center>
+            </Box>
+            <FormControl marginTop={10}>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                placeholder="medium size"
+                size="md"
+                width={[250]}
+                variant="filled"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <FormHelperText>We'll never share your email.</FormHelperText>
+            </FormControl>
+            <InputGroup size="md" width={[250]} marginTop={10}>
+              <Input
+                pr="4.5rem"
+                type={show ? "text" : "password"}
+                placeholder="Enter password"
+                variant="filled"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            <ButtonGroup variant="outline" spacing="6" marginTop={10}>
+              <Button
+                colorScheme="blue"
+                color={"white"}
+                width={[250]}
+                type="submit"
+                backgroundColor={"blue.400"}
+              >
+                submit
               </Button>
-            </InputRightElement>
-          </InputGroup>
-          <ButtonGroup variant="outline" spacing="6" marginTop={10}>
-            <Button
-              colorScheme="blue"
-              color={"white"}
-              width={[250]}
-              type="submit"
-              backgroundColor={"blue.400"}
-            >
-              submit
-            </Button>
-          </ButtonGroup>
-        </form>
-      </Center>
+            </ButtonGroup>
+          </form>
+        </Center>
+      )}
     </div>
   );
 };

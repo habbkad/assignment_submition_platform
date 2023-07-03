@@ -10,6 +10,8 @@ const initialState = {
     phone: 0,
     assignments: [],
     email: "",
+    gen: "",
+    _id: "",
   },
 };
 

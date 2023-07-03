@@ -1,14 +1,38 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./UserSlice";
 import studentReducer from "./StudentSlice";
+import assignmentsSlice from "./AssignmentsSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 // ...
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    student: studentReducer,
-  },
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage: AsyncStorage,
+};
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  student: studentReducer,
+  assignments: assignmentsSlice,
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+});
+export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

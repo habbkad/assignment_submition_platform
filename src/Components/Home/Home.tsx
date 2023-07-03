@@ -11,7 +11,8 @@ interface Props {}
 const Home = (props: Props) => {
   const { user }: any = useAppSelector((state) => state.user);
 
-  useStudent("648c72eeb3ae57c966d7d0fa");
+  useStudent(user.id);
+  console.log(user);
 
   return (
     <div>
