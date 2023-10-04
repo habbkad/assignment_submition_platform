@@ -3,6 +3,7 @@ import axios from "axios";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../Redux/Store";
 import { addStudent } from "../Redux/StudentSlice";
+import { addResources } from "../Redux/ResourcesSlice";
 import {
   addStudentAssignments,
   addAssignmentDetails,
@@ -10,6 +11,7 @@ import {
 
 const baseURL = "http://localhost:5002/api/v1/students/";
 const assignmentURL = "http://localhost:5002/api/v1/assignments";
+const videosURL = "http://localhost:5002/api/v1/resources";
 
 export const useStudent = (id: string) => {
   const dispatch = useAppDispatch();
@@ -47,6 +49,31 @@ export const useAssignments = (id: string) => {
         });
         //console.log(data);
         return data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStudent();
+  }, []);
+};
+
+//get videos
+export const useVideos = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const getStudent = async () => {
+      try {
+        const { data } = await axios.get(videosURL, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+          withCredentials: true,
+        });
+        dispatch(addResources(data.resource));
+        console.log(data.resource);
+
+        return data.resources;
       } catch (err) {
         console.log(err);
       }
@@ -108,6 +135,18 @@ export const useAssignmentDetails = (id: string | undefined) => {
   }, []);
 };
 
+export const signOutUser = async () => {
+  try {
+    await axios
+      .get("http://localhost:5002/api/v1/auth/signout")
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } catch (error) {}
+};
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

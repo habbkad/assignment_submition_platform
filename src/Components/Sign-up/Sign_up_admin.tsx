@@ -17,11 +17,12 @@ import axios from "axios";
 import { useAppDispatch } from "../../hooks/hook";
 import { addUser } from "../../Redux/UserSlice";
 import { useNavigate } from "react-router-dom";
+import Sign_up from "./Sign_up";
 
 interface Props {}
 
-const LogIn = (props: Props) => {
-  const baseURL = "http://localhost:5002/api/v1/auth/login";
+const Sign_up_admin = (props: Props) => {
+  const baseURL = "http://localhost:5002/api/v1/auth/signup";
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const LogIn = (props: Props) => {
         {
           email,
           password,
+          role: "tutor",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
@@ -51,7 +53,7 @@ const LogIn = (props: Props) => {
 
       setTimeout(() => {
         setLoading(false);
-        dispatch(addUser(data));
+        console.log(data);
       }, 2000);
     } catch (err) {
       console.log(err);
@@ -76,7 +78,7 @@ const LogIn = (props: Props) => {
                 <Center>
                   <Box>
                     <Image />
-                    <Text fontSize={"3xl"}>LogIn</Text>
+                    <Text fontSize={"3xl"}>SignUp Admin</Text>
                   </Box>
                 </Center>
               </Box>
@@ -121,16 +123,6 @@ const LogIn = (props: Props) => {
                   submit
                 </Button>
               </ButtonGroup>
-              <Box>
-                <Text
-                  alignSelf={"flex-end"}
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                >
-                  SignUp
-                </Text>
-              </Box>
             </form>
           </Center>
         </Box>
@@ -139,4 +131,4 @@ const LogIn = (props: Props) => {
   );
 };
 
-export default LogIn;
+export default Sign_up_admin;

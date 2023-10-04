@@ -38,6 +38,7 @@ import User_routes from "../../router/User_routes";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hook";
 import { addUser } from "../../Redux/UserSlice";
+import { signOutUser } from "../../hooks/hook";
 
 interface LinkItemProps {
   name: string;
@@ -46,6 +47,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, location: "/" },
+  { name: "Video resources", icon: FiTrendingUp, location: "resources" },
   { name: "Assignments", icon: FiTrendingUp, location: "/assignments" },
   {
     name: "Submit assgnments",
@@ -181,6 +183,7 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -254,7 +257,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuDivider />
               <MenuItem
                 onClick={(e) => {
-                  dispatch(addUser(""));
+                  dispatch(addUser({ id: "" }));
+                  signOutUser();
                 }}
               >
                 Sign out
