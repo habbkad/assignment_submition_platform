@@ -26,7 +26,7 @@ export default function blogPostWithImage(props: Props) {
     >
       <Box
         h={"50px"}
-        bg={"gray.100"}
+        bg={["gray.800"]}
         mt={-6}
         mx={-6}
         mb={6}

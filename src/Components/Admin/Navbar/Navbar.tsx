@@ -26,17 +26,22 @@ import {
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import Tutor_routes from "../../../router/Tutor_routes";
+import { useNavigate } from "react-router-dom";
+import { signOutUser } from "../../../hooks/hook";
+import { addUser } from "../../../Redux/UserSlice";
+import { useDispatch } from "react-redux";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  location: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Home", icon: FiHome, location: "/" },
+  { name: "Upload Resorce", icon: FiTrendingUp, location: "/video-resources" },
+  { name: "Explore", icon: FiCompass, location: "/" },
+  { name: "Favourites", icon: FiStar, location: "/" },
+  { name: "LogOut", icon: FiSettings, location: "/" },
 ];
 
 export default function SimpleSidebar() {
@@ -73,6 +78,8 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -90,10 +97,37 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} route={link.location}>
           {link.name}
         </NavItem>
       ))}
+      <Box
+        as="a"
+        href="#"
+        style={{ textDecoration: "none" }}
+        _focus={{ boxShadow: "none" }}
+        onClick={() => {
+          dispatch(addUser({ id: "" }));
+
+          navigate("/");
+          signOutUser();
+        }}
+      >
+        <Flex
+          align="center"
+          p="4"
+          mx="4"
+          borderRadius="lg"
+          role="group"
+          cursor="pointer"
+          _hover={{
+            bg: "cyan.400",
+            color: "white",
+          }}
+        >
+          <Text>Signout</Text>
+        </Flex>
+      </Box>
     </Box>
   );
 };
@@ -101,14 +135,19 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  route: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
+  const navigate = useNavigate();
   return (
     <Box
       as="a"
       href="#"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
+      onClick={() => {
+        navigate(route);
+      }}
     >
       <Flex
         align="center"

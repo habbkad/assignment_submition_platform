@@ -12,6 +12,7 @@ import {
   Center,
   Image,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useAppDispatch } from "../../hooks/hook";
@@ -62,9 +63,12 @@ const LogIn = (props: Props) => {
       {loading ? (
         <Center height={["100vh"]}>
           {" "}
-          <Image
-            src={require("../../images/loading.gif")}
-            objectFit={"contain"}
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
           />
         </Center>
       ) : (
@@ -124,11 +128,13 @@ const LogIn = (props: Props) => {
               <Box>
                 <Text
                   alignSelf={"flex-end"}
+                  color={"blue.500"}
+                  fontSize={12}
                   onClick={() => {
                     navigate("/signup");
                   }}
                 >
-                  SignUp
+                  Signup...
                 </Text>
               </Box>
             </form>

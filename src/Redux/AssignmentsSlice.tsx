@@ -3,6 +3,7 @@ import type { RootState } from "./Store";
 import { act } from "react-dom/test-utils";
 import { type } from "os";
 type Data = {
+  approved: boolean;
   date: string;
   gen: number;
   github_link: string;
@@ -16,6 +17,7 @@ type Data = {
   _id: string;
 };
 type AssignmentData = {
+  approved: boolean;
   date: string;
   gen: number;
   github_link: string;
@@ -37,6 +39,7 @@ export interface State {
 const initialState: State = {
   studentAssignments: [],
   assignmentDetails: {
+    approved: false,
     date: "",
     gen: 0,
     github_link: "",

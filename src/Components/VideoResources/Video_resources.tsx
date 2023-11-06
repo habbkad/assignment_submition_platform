@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Card from "./Card";
 import React from "react";
 import { useVideos } from "../../hooks/hook";
@@ -12,17 +12,30 @@ const Video_resources = (props: Props) => {
 
   const navigate = useNavigate();
   let html = Object.values(resources.html);
+  console.log(resources);
 
   let css = Object.values(resources.css);
   let responsive = Object.values(resources.responsive);
-
-  useVideos();
-
+  const { user }: any = useAppSelector((state) => state.user);
+  console.log(user);
   console.log(html);
 
   return (
     <div>
       <Box>
+        {user.role === "tutor" ? (
+          <Flex>
+            <Button
+              onClick={(e) => {
+                navigate("/upload-resources");
+              }}
+            >
+              Add
+            </Button>
+          </Flex>
+        ) : (
+          <></>
+        )}
         <Box mt={10}>
           <Text fontSize={"3xl"}>Html & Css</Text>
           <SimpleGrid columns={[1, 2, 4]} spacing={10} mt={4}>

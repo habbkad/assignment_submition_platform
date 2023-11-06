@@ -13,6 +13,16 @@ const initialState = {
     gen: "",
     _id: "",
   },
+  tutor: {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    staffId: 0,
+    phone: 0,
+    email: "",
+    gen: "",
+    _id: "",
+  },
 };
 
 export const StudentSlice = createSlice({
@@ -23,10 +33,13 @@ export const StudentSlice = createSlice({
     addStudent: (state, action) => {
       state.student = action.payload;
     },
+    addTutor: (state, action) => {
+      state.tutor = action.payload;
+    },
   },
 });
 
-export const { addStudent } = StudentSlice.actions;
+export const { addStudent, addTutor } = StudentSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 

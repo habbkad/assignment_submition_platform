@@ -6,10 +6,11 @@ type Props = {};
 
 function User_profile({}: Props) {
   const { student }: any = useAppSelector((state) => state.student);
+  console.log(student);
 
   return (
     <div>
-      <Box backgroundColor={"gray.50"}>
+      <Box>
         <Text fontSize={"2xl"}>Student Details</Text>
       </Box>
       <Flex

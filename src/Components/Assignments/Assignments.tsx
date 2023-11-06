@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  SimpleGrid,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { useAppSelector } from "../../hooks/hook";
 import { useStudentAssignments } from "../../hooks/hook";
 import { log } from "console";
@@ -20,25 +33,40 @@ function Assignments(props: Props) {
 
   return (
     <div>
-      <Box>
-        <Box mt={10}>
-          <Text fontSize={"3xl"}>Html & Css</Text>
-          <SimpleGrid columns={[1, 2, 4]} spacing={10} mt={4}>
-            {studentAssignments.map((item) => {
-              if (item.topic == "Html & Css") {
+      <Box mt={10}>
+        <Text fontSize={"3xl"}>Html & Css</Text>
+        <TableContainer>
+          <Table variant="striped" colorScheme="teal">
+            <TableCaption>Imperial to metric conversion factors</TableCaption>{" "}
+            <Thead>
+              <Tr>
+                <Th>Topic</Th>
+                <Th>Week</Th>
+                <Th>Date</Th>
+                <Th>Approved</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {studentAssignments.map((item) => {
+                console.log(item);
+
                 return (
-                  <Box
+                  <Tr
                     onClick={(e) => {
                       navigate(`${item._id}`);
                     }}
                   >
-                    <Card name="Html & Css" submitted={true} />
-                  </Box>
+                    <Td>{item.topic}</Td>
+                    <Td>{item.week}</Td>
+                    <Td>{item.date.split("/")[0]}</Td>
+                    <Td>{item.approved ? "True" : "False"}</Td>
+                  </Tr>
                 );
-              }
-            })}
-          </SimpleGrid>
-        </Box>
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+        {/* </Box>
         <Box mt={10}>
           <Text fontSize={"3xl"}>Responsive Design ( Bootstrap) </Text>
           <SimpleGrid columns={[1, 2, 4]} spacing={10} mt={4}>
@@ -95,7 +123,7 @@ function Assignments(props: Props) {
               }
             })}
           </SimpleGrid>
-        </Box>
+        </Box> */}
       </Box>
     </div>
   );

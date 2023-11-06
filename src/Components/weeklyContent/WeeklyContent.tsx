@@ -26,7 +26,7 @@ function WeeklyContent({}: Props) {
 
   return (
     <div>
-      <Box backgroundColor={"white"} h={["80vh"]}>
+      <Box h={["80vh"]}>
         <Flex
           justify={"center"}
           direction={["column", "row"]}

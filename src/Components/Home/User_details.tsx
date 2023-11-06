@@ -9,7 +9,7 @@ const User_details = (props: Props) => {
   return (
     <div>
       <Box>
-        <Box backgroundColor={"gray.50"}>
+        <Box>
           <Text fontSize={"2xl"}>Personal</Text>
         </Box>
         <Box>
@@ -21,17 +21,14 @@ const User_details = (props: Props) => {
           <Flex mt={[10]}>
             <Text w={["30%"]}>Index Number</Text>
             <Text w={["30%"]}>{student.indexNumber}</Text>
-            <Text w={["50%"]}> edit</Text>
           </Flex>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Gen</Text>
             <Text w={["30%"]}>{student.gen}</Text>
-            <Text w={["50%"]}> edit</Text>
           </Flex>
           <Flex mt={[10]}>
             <Text w={["30%"]}>Email</Text>
             <Text w={["30%"]}>{student.email}</Text>
-            <Text w={["50%"]}> edit</Text>
           </Flex>
         </Box>
       </Box>

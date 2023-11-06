@@ -259,6 +259,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 onClick={(e) => {
                   dispatch(addUser({ id: "" }));
                   signOutUser();
+                  navigate("/");
                 }}
               >
                 Sign out

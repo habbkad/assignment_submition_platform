@@ -49,6 +49,7 @@ function Submit({}: Props) {
   const [week, setWeek] = useState<string | null>("");
   const [title, setTitle] = useState<string | null>("");
   const [gitLink, setGitLink] = useState<string | null>("");
+  const [demoLink, setDemolink] = useState<string | null>("");
   const [imageFile, setImageFile] = useState<any>(null);
 
   const isError = indexNumber === null;
@@ -108,6 +109,7 @@ function Submit({}: Props) {
           gen,
           week,
           github_link: gitLink,
+          demo_link: demoLink,
           topic,
           pdfUrl: "xxxxxxx",
           headers: {
@@ -169,13 +171,7 @@ function Submit({}: Props) {
           <Text fontSize={"3xl"}>Submit Assignment</Text>
         </Box>
         <Flex direction={["column", "row"]} w={"100%"}>
-          <Box
-            mt={10}
-            w={["100%", "50%"]}
-            backgroundColor={"white"}
-            p={5}
-            borderRadius={10}
-          >
+          <Box mt={10} w={["100%", "50%"]} p={5} borderRadius={10}>
             <form onSubmit={handleSubmit}>
               <Flex direction={["column", "row"]}>
                 <Box w={["100%", "50%"]}>
@@ -275,6 +271,25 @@ function Submit({}: Props) {
               </Box>
               <Box w={["100%", "100%"]} mt={3}>
                 <FormControl>
+                  <FormLabel fontSize={"xl"}>Demo link (Git link)</FormLabel>
+                  <InputGroup size="md">
+                    <InputLeftAddon children="https://" />
+                    <Input
+                      placeholder="mysite"
+                      onChange={(e) => {
+                        setDemolink(e.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                  {!isError ? (
+                    <FormHelperText></FormHelperText>
+                  ) : (
+                    <FormErrorMessage>Git is required.</FormErrorMessage>
+                  )}
+                </FormControl>
+              </Box>
+              <Box w={["100%", "100%"]} mt={3}>
+                <FormControl>
                   <FormLabel fontSize={"xl"}>
                     Repository link (Git link)
                   </FormLabel>
@@ -310,13 +325,7 @@ function Submit({}: Props) {
               </Box>
             </form>
           </Box>
-          <Box
-            w={["100%", "50%"]}
-            mt={10}
-            backgroundColor={"white"}
-            p={5}
-            borderRadius={10}
-          >
+          <Box w={["100%", "50%"]} mt={10} p={5} borderRadius={10}>
             <Box>
               <Box w={["100%", "50%"]} justifyContent={"center"}>
                 {image ? (

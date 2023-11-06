@@ -65,7 +65,7 @@ const Sign_up_admin = (props: Props) => {
         <Center height={["100vh"]}>
           {" "}
           <Image
-            src={require("../../images/loading.gif")}
+            src={require("../../images/loading.svg")}
             objectFit={"contain"}
           />
         </Center>
