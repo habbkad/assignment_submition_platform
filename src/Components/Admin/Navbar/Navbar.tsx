@@ -39,7 +39,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, location: "/" },
   { name: "Upload Resorce", icon: FiTrendingUp, location: "/video-resources" },
-  { name: "Explore", icon: FiCompass, location: "/" },
+  { name: "New Assignments", icon: FiCompass, location: "new-assignments" },
   { name: "Favourites", icon: FiStar, location: "/" },
   { name: "LogOut", icon: FiSettings, location: "/" },
 ];
@@ -142,7 +142,6 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
   return (
     <Box
       as="a"
-      href="#"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
       onClick={() => {

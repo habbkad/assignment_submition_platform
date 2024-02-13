@@ -18,12 +18,11 @@ import { useAppSelector } from "../../hooks/hook";
 import { useStudentAssignments } from "../../hooks/hook";
 import { log } from "console";
 import { useNavigate } from "react-router-dom";
+import TableRow from "./TableRow";
 
 type Props = {};
 
 function Assignments(props: Props) {
-  const navigate = useNavigate();
-
   let assignments = [1, 2, 3, 4, 5, 6];
   const { student } = useAppSelector((state) => state.student);
   const { studentAssignments } = useAppSelector((state) => state.assignments);
@@ -50,18 +49,7 @@ function Assignments(props: Props) {
               {studentAssignments.map((item) => {
                 console.log(item);
 
-                return (
-                  <Tr
-                    onClick={(e) => {
-                      navigate(`${item._id}`);
-                    }}
-                  >
-                    <Td>{item.topic}</Td>
-                    <Td>{item.week}</Td>
-                    <Td>{item.date.split("/")[0]}</Td>
-                    <Td>{item.approved ? "True" : "False"}</Td>
-                  </Tr>
-                );
+                return <TableRow item={item} />;
               })}
             </Tbody>
           </Table>

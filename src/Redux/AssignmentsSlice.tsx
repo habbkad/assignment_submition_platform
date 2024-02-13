@@ -33,11 +33,13 @@ type AssignmentData = {
 export interface State {
   studentAssignments: Data[];
   assignmentDetails: AssignmentData;
+  unapprovedAssignments: Data[];
 }
 
 // Define the initial state using that type
 const initialState: State = {
   studentAssignments: [],
+  unapprovedAssignments: [],
   assignmentDetails: {
     approved: false,
     date: "",
@@ -64,11 +66,17 @@ export const assignmentsSlice = createSlice({
     addAssignmentDetails: (state, action) => {
       state.assignmentDetails = action.payload;
     },
+    addUnapprovedAssignment: (state, action) => {
+      state.unapprovedAssignments = action.payload;
+    },
   },
 });
 
-export const { addStudentAssignments, addAssignmentDetails } =
-  assignmentsSlice.actions;
+export const {
+  addStudentAssignments,
+  addAssignmentDetails,
+  addUnapprovedAssignment,
+} = assignmentsSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.assignments;

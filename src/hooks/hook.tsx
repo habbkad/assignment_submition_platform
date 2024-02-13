@@ -7,6 +7,7 @@ import { addResources } from "../Redux/ResourcesSlice";
 import {
   addStudentAssignments,
   addAssignmentDetails,
+  addUnapprovedAssignment,
 } from "../Redux/AssignmentsSlice";
 import {
   Alert,
@@ -15,10 +16,13 @@ import {
   AlertTitle,
 } from "@chakra-ui/react";
 
-const baseURL = "http://localhost:5002/api/v1/students/";
+const baseURL =
+  "https://main--melodious-salmiakki-0d4257.netlify.app/https://main--melodious-salmiakki-0d4257.netlify.app/students/";
 const assignmentURL = "http://localhost:5002/api/v1/assignments";
 const videosURL = "http://localhost:5002/api/v1/resources";
 const tutorURL = "http://localhost:5002/api/v1/tutor/";
+const unapprovedAssignmentsURL =
+  "http://localhost:5002/api/v1/assignments/unapproved";
 
 export const useStudent = (id: string) => {
   const dispatch = useAppDispatch();
@@ -193,6 +197,52 @@ export const useCreateResouce = async (
   resourceLink: string,
   stack: string
 ) => {};
+
+//get all unapproved Assignments
+export const useUnapprovedAssignments = async () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const getAssignments = async () => {
+      try {
+        const { data } = await axios.get(unapprovedAssignmentsURL, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+          withCredentials: true,
+        });
+
+        console.log(data);
+        dispatch(addUnapprovedAssignment(data.assignment));
+        return data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAssignments();
+  }, []);
+};
+
+//approveAssignment
+export const approveAssignment = async (update: any) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:5002/api/v1/assignments/${update._id}`,
+      update,
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        withCredentials: true,
+      }
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

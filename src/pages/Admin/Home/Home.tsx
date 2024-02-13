@@ -1,9 +1,15 @@
 import React from "react";
-import { useAppSelector, useStudent, useTutor } from "../../../hooks/hook";
+import {
+  useAppSelector,
+  useStudent,
+  useTutor,
+  useUnapprovedAssignments,
+} from "../../../hooks/hook";
 
 interface Props {}
 
 const Home = (props: Props) => {
+  useUnapprovedAssignments();
   const { user }: any = useAppSelector((state) => state.user);
   console.log(user);
 
