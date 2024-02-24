@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../hooks/hook";
 import { useAssignmentDetails } from "../../../hooks/hook";
@@ -18,14 +18,19 @@ import { stat } from "fs";
 interface Props {}
 
 const AssignmentDetail = (props: Props) => {
+  const { tutor } = useAppSelector((state) => state.student);
+  const [comment, setComment] = useState({});
+  const [message, setMessage] = useState("");
+  console.log(tutor);
+
   let { id } = useParams();
   useAssignmentDetails(id);
   let { assignmentDetails } = useAppSelector((state) => state.assignments);
-  console.log("((((((((", assignmentDetails);
 
   const handleApproval = () => {
-    let newObj = { ...assignmentDetails };
+    let newObj = { ...assignmentDetails, comment: {} };
     newObj.approved = true;
+    newObj.comment = comment;
 
     approveAssignment(newObj);
   };
@@ -89,9 +94,24 @@ const AssignmentDetail = (props: Props) => {
       </Box>{" "}
       <Box mt={["5%"]}>
         <Text fontSize={[30]}>FeedBack</Text>
-        <Textarea placeholder="medium size" size="resize" w={["60%"]} />
-        <Button variant="solid" colorScheme="green">
-          {" "}
+        <Textarea
+          placeholder="medium size"
+          size="resize"
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+          w={["60%"]}
+        />
+        <Button
+          variant="solid"
+          colorScheme="green"
+          onClick={() => {
+            setComment({
+              tutor: `${tutor.firstName} ${tutor.lastName}`,
+              comment: message,
+            });
+          }}
+        >
           Done
         </Button>
       </Box>

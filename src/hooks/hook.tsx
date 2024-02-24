@@ -16,13 +16,12 @@ import {
   AlertTitle,
 } from "@chakra-ui/react";
 
-const baseURL =
-  "https://main--melodious-salmiakki-0d4257.netlify.app/https://main--melodious-salmiakki-0d4257.netlify.app/students/";
-const assignmentURL = "http://localhost:5002/api/v1/assignments";
-const videosURL = "http://localhost:5002/api/v1/resources";
-const tutorURL = "http://localhost:5002/api/v1/tutor/";
+const baseURL = "https://main--hablms.netlify.app/api/v1/students/";
+const assignmentURL = "https://main--hablms.netlify.app/api/v1/assignments";
+const videosURL = "https://main--hablms.netlify.app/api/v1/resources";
+const tutorURL = "https://main--hablms.netlify.app/api/v1/tutor/";
 const unapprovedAssignmentsURL =
-  "http://localhost:5002/api/v1/assignments/unapproved";
+  "https://main--hablms.netlify.app/api/v1/assignments/unapproved";
 
 export const useStudent = (id: string) => {
   const dispatch = useAppDispatch();
@@ -58,7 +57,7 @@ export const useTutor = (id: string) => {
           },
           withCredentials: true,
         });
-        dispatch(addTutor(data.student));
+        dispatch(addTutor(data.tutor));
         console.log(data);
         return data;
       } catch (err) {
@@ -80,7 +79,7 @@ export const useAssignments = (id: string) => {
           },
           withCredentials: true,
         });
-        //console.log(data);
+
         return data;
       } catch (err) {
         console.log(err);
@@ -132,7 +131,7 @@ export const useStudentAssignments = (id: string) => {
           }
         );
         dispatch(addStudentAssignments(data.assignment));
-        //console.log(data);
+        console.log(data);
         return data;
       } catch (err) {
         console.log(err);
@@ -211,9 +210,9 @@ export const useUnapprovedAssignments = async () => {
           },
           withCredentials: true,
         });
-
         console.log(data);
-        dispatch(addUnapprovedAssignment(data.assignment));
+
+        dispatch(addUnapprovedAssignment(data.unapproved));
         return data;
       } catch (err) {
         console.log(err);

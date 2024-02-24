@@ -39,6 +39,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hook";
 import { addUser } from "../../Redux/UserSlice";
 import { signOutUser } from "../../hooks/hook";
+import { addStudentAssignments } from "../../Redux/AssignmentsSlice";
 
 interface LinkItemProps {
   name: string;
@@ -258,6 +259,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem
                 onClick={(e) => {
                   dispatch(addUser({ id: "" }));
+                  dispatch(addStudentAssignments([]));
                   signOutUser();
                   navigate("/");
                 }}

@@ -22,6 +22,9 @@ function Assignment_Dertails({}: Props) {
   return (
     <div>
       <Box>
+        <Box>
+          <Text fontSize={"2xl"}>Progress</Text>
+        </Box>
         <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
             <StatsCard

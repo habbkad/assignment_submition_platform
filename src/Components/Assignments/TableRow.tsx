@@ -6,8 +6,8 @@ import { approveAssignment, useAppSelector } from "../../hooks/hook";
 type Props = {};
 
 const TableRow = ({ item }: any) => {
-    let { assignmentDetails } = useAppSelector((state) => state.assignments);
-    console.log("((((((((", assignmentDetails);
+  let { assignmentDetails } = useAppSelector((state) => state.assignments);
+  //console.log("((((((((", assignmentDetails);
   const navigate = useNavigate();
   const handleApproval = () => {
     let newObj = { ...assignmentDetails };

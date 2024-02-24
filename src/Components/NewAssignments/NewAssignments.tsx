@@ -12,7 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React from "react";
-import { useAppSelector, useUnapprovedAssignments } from "../../hooks/hook";
+import { useAppSelector } from "../../hooks/hook";
 import { type } from "os";
 import { log } from "console";
 import AssignmentItem from "./AssignmentItem";
@@ -20,11 +20,13 @@ import AssignmentItem from "./AssignmentItem";
 type Props = {};
 
 const NewAssignments = (props: Props) => {
-  const data = useAppSelector(
-    (state) => state.assignments.unapprovedAssignments
-  );
+  let data = useAppSelector((state) => state.assignments.unapprovedAssignments);
+  console.log(useAppSelector((state) => state.assignments));
 
   console.log(data);
+  if (!data) {
+    data = [];
+  }
 
   return (
     <Box>

@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 interface Props {}
 
 const LogIn = (props: Props) => {
-  const baseURL = "http://localhost:5002/api/v1/auth/login";
+  const baseURL = "https://main--hablms.netlify.app/api/v1/auth/login";
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

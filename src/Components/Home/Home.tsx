@@ -15,7 +15,7 @@ const Home = (props: Props) => {
   console.log(user);
 
   return (
-    <div>
+    <Box px={"5%"}>
       <Box>
         <User_profile />
       </Box>{" "}
@@ -25,7 +25,7 @@ const Home = (props: Props) => {
       <Box mt={["10%", "5%"]}>
         <Assignment_Details />
       </Box>
-    </div>
+    </Box>
   );
 };
 

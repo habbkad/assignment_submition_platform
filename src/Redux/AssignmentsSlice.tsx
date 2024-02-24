@@ -67,7 +67,7 @@ export const assignmentsSlice = createSlice({
       state.assignmentDetails = action.payload;
     },
     addUnapprovedAssignment: (state, action) => {
-      state.unapprovedAssignments = action.payload;
+      state.unapprovedAssignments = [...action.payload];
     },
   },
 });
